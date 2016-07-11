@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">EasyTabs</string>
+    <string name="tab_1">tab 1</string>
+    <string name="tab_2">large tab 2</string>
+</resources>
