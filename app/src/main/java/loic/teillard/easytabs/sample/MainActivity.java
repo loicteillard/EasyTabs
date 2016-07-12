@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import loic.teillard.easytabs.EasyTabs;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTab1, mTab2;
     private View mIndicator;
     private ViewPager mViewPager;
+    private EasyTabs mEasyTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +27,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mTab1 = (TextView) findViewById(R.id.tab_1);
-        mTab2 = (TextView) findViewById(R.id.tab_2);
-        mIndicator = findViewById(R.id.indicator);
+        mEasyTabs = (EasyTabs) findViewById(R.id.easytabs);
+//        mTab1 = (TextView) findViewById(R.id.tab_1);
+        mTab1 = mEasyTabs.getTab1();
+//        mTab2 = (TextView) findViewById(R.id.tab_2);
+        mTab2 = mEasyTabs.getTab2();
+//        mIndicator = findViewById(R.id.indicator);
+        mIndicator = mEasyTabs.getIndicator();
 
         mTab1.setText(EasyTabsPagerEnum.TAB_1.getTitleResId());
         mTab2.setText(EasyTabsPagerEnum.TAB_2.getTitleResId());
+
+//        final ViewGroup layout = (ViewGroup) ((ViewGroup) this
+//                .findViewById(android.R.id.content)).getChildAt(0);
+
+//        EasyTabs easyTabs = new EasyTabs(this);
 
         mTab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchState(EasyTabsPagerEnum pagerEnum) {
 
-        int unselected,selected;
+        int unselected, selected;
 
         switch (pagerEnum) {
             case TAB_1:
@@ -104,22 +116,18 @@ public class MainActivity extends AppCompatActivity {
                 mTab1.setTextColor(selected);
                 mTab2.setTextColor(unselected);
                 mIndicator.setBackgroundColor(selected);
-                try {
-                    mIndicator.animate().translationX(mTab1.getX()).setDuration(200);
-                    mTab1.post(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    int padding = getTextWidth(mTab1);
-                                    int tabWidth = mTab1.getMeasuredWidth();
-                                    setDimensionLayout(mIndicator, padding, -1);
-                                    setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                                }
+                mIndicator.animate().translationX(mTab1.getX()).setDuration(200);
+                mTab1.post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                int padding = getTextWidth(mTab1);
+                                int tabWidth = mTab1.getMeasuredWidth();
+                                setDimensionLayout(mIndicator, padding, -1);
+                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
-                    );
-
-                } catch (Exception e) {
-                }
+                        }
+                );
 
                 break;
 
@@ -129,21 +137,18 @@ public class MainActivity extends AppCompatActivity {
                 mTab1.setTextColor(unselected);
                 mTab2.setTextColor(selected);
                 mIndicator.setBackgroundColor(selected);
-                try {
-                    mIndicator.animate().translationX(mTab2.getX()).setDuration(200);
-                    mTab2.post(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    int padding = getTextWidth(mTab2);
-                                    int tabWidth = mTab2.getMeasuredWidth();
-                                    setDimensionLayout(mIndicator, padding, -1);
-                                    setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                                }
+                mIndicator.animate().translationX(mTab2.getX()).setDuration(200);
+                mTab2.post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                int padding = getTextWidth(mTab2);
+                                int tabWidth = mTab2.getMeasuredWidth();
+                                setDimensionLayout(mIndicator, padding, -1);
+                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
-                    );
-                } catch (Exception e) {
-                }
+                        }
+                );
                 break;
         }
 
