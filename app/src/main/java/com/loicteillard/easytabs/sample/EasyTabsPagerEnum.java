@@ -1,4 +1,4 @@
-package loic.teillard.easytabs.sample;
+package com.loicteillard.easytabs.sample;
 
 
 public enum EasyTabsPagerEnum {

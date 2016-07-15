@@ -1,4 +1,4 @@
-package loic.teillard.easytabs.sample;
+package com.loicteillard.easytabs.sample;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;

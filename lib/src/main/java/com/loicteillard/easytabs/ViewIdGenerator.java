@@ -1,4 +1,4 @@
-package loic.teillard.easytabs;
+package com.loicteillard.easytabs;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

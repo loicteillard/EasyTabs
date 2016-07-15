@@ -1,4 +1,4 @@
-package loic.teillard.easytabs.sample;
+package com.loicteillard.easytabs.sample;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import loic.teillard.easytabs.EasyTabs;
+import com.loicteillard.easytabs.EasyTabs;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,20 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mEasyTabs = (EasyTabs) findViewById(R.id.easytabs);
-//        mTab1 = (TextView) findViewById(R.id.tab_1);
         mTab1 = mEasyTabs.getTab1();
-//        mTab2 = (TextView) findViewById(R.id.tab_2);
         mTab2 = mEasyTabs.getTab2();
-//        mIndicator = findViewById(R.id.indicator);
         mIndicator = mEasyTabs.getIndicator();
 
         mTab1.setText(EasyTabsPagerEnum.TAB_1.getTitleResId());
         mTab2.setText(EasyTabsPagerEnum.TAB_2.getTitleResId());
-
-//        final ViewGroup layout = (ViewGroup) ((ViewGroup) this
-//                .findViewById(android.R.id.content)).getChildAt(0);
-
-//        EasyTabs easyTabs = new EasyTabs(this);
 
         mTab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (pagerEnum) {
                     case TAB_1:
-                        populateTab1(layout);
+                        populateTab1Content(layout);
                         break;
                     case TAB_2:
-                        populateTab2(layout);
+                        populateTab2Content(layout);
                         break;
                 }
             }
@@ -95,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
         switchState(EasyTabsPagerEnum.TAB_1);
     }
 
-    private void populateTab1(ViewGroup layout) {
+    private void populateTab1Content(ViewGroup layout) {
         TextView content = (TextView) layout.findViewById(R.id.content);
-        content.setText("This is Tab 1");
+        content.setText("This is Content 1");
     }
 
-    private void populateTab2(ViewGroup layout) {
+    private void populateTab2Content(ViewGroup layout) {
         TextView content = (TextView) layout.findViewById(R.id.content);
-        content.setText("This is Tab 2");
+        content.setText("This is Content 2");
     }
 
     private void switchState(EasyTabsPagerEnum pagerEnum) {

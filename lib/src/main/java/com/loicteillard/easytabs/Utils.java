@@ -1,4 +1,4 @@
-package loic.teillard.easytabs;
+package com.loicteillard.easytabs;
 
 import android.content.res.Resources;
 
