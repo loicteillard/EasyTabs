@@ -6,15 +6,22 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.loicteillard.easytabs.sample.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InsideActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WithFragmentsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

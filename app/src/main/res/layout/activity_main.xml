@@ -6,15 +6,22 @@
     android:orientation="vertical"
     >
 
-    <com.loicteillard.easytabs.EasyTabs
-        android:id="@+id/easytabs"
-        android:layout_width="match_parent"
+    <Button
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="viexpager with simple views inside the same activity"
+        android:onClick="inside"
         />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="viewpager with fragments"
+        android:onClick="fragments"
+        />
+
 </LinearLayout>
