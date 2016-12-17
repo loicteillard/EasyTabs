@@ -27,29 +27,7 @@ public class EasyTabTextActivity extends BaseActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mEasyTabs = (EasyTabs) findViewById(R.id.easytabs);
 
-        mTab1 = mEasyTabs.getTabs().get(0);
-        mTab2 = mEasyTabs.getTabs().get(1);
-        mTab3 = mEasyTabs.getTabs().get(2);
-        mIndicator = mEasyTabs.getIndicator();
 
-        mTab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchState(MyFragmentAdapter.TAB_1);
-            }
-        });
-        mTab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchState(MyFragmentAdapter.TAB_2);
-            }
-        });
-        mTab3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                switchState(MyFragmentAdapter.TAB_3);
-            }
-        });
 
         MyFragmentAdapter pagerAdapter = new MyFragmentAdapter(getSupportFragmentManager());
 
@@ -71,126 +49,10 @@ public class EasyTabTextActivity extends BaseActivity {
 
             }
         });
-        switchState(MyFragmentAdapter.TAB_1);
+
     }
 
-    private void switchState(int tab) {
 
-        int unselected, selected;
 
-        switch (tab) {
-            case MyFragmentAdapter.TAB_1:
-                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
-                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
-                mTab1.setTextColor(selected);
-                mTab2.setTextColor(unselected);
-                mTab3.setTextColor(unselected);
-                mIndicator.setBackgroundColor(selected);
 
-                mTab1.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(mTab1.getX()).setDuration(200);
-                                int padding = getTextWidth(mTab1);
-                                int tabWidth = mTab1.getMeasuredWidth();
-                                setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                            }
-                        }
-                );
-
-                break;
-
-            case MyFragmentAdapter.TAB_2:
-                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
-                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
-                mTab1.setTextColor(unselected);
-                mTab2.setTextColor(selected);
-                mTab3.setTextColor(unselected);
-                mIndicator.setBackgroundColor(selected);
-                mTab2.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(mTab2.getX()).setDuration(200);
-                                int padding = getTextWidth(mTab2);
-                                int tabWidth = mTab2.getMeasuredWidth();
-                                setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                            }
-                        }
-                );
-                break;
-
-            case MyFragmentAdapter.TAB_3:
-                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
-                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
-                mTab1.setTextColor(unselected);
-                mTab2.setTextColor(unselected);
-                mTab3.setTextColor(selected);
-                mIndicator.setBackgroundColor(selected);
-                mTab3.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(mTab3.getX()).setDuration(200);
-                                int padding = getTextWidth(mTab3);
-                                int tabWidth = mTab3.getMeasuredWidth();
-                                setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                            }
-                        }
-                );
-                break;
-        }
-
-        mViewPager.setCurrentItem(tab, true);
-    }
-
-    private int getTextWidth(TextView tv) {
-        Rect bounds = new Rect();
-        Paint textPaint = tv.getPaint();
-        textPaint.getTextBounds(tv.getText().toString().toUpperCase(), 0, tv.getText().toString().length(), bounds);
-        return bounds.width();
-    }
-
-    public static void setDimensionLayout(View layout, int width, int height) {
-
-        if (layout == null) return;
-
-        try {
-
-            ViewGroup.LayoutParams params = layout.getLayoutParams();
-
-            if (width < 0) width = ViewGroup.LayoutParams.MATCH_PARENT;
-            if (width == 0) width = ViewGroup.LayoutParams.WRAP_CONTENT;
-            if (width == -1) width = params.width;
-            if (height < 0) height = ViewGroup.LayoutParams.MATCH_PARENT;
-            if (height == 0) height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            if (height == -1) height = params.height;
-
-            params.width = width;
-            params.height = height;
-            layout.setLayoutParams(params);
-            layout.requestLayout();
-        } catch (Exception e) {
-            Log.e("Error", "change dimension");
-        }
-    }
-
-    public static void setMarginsLayout(View layout, int left, int top, int right, int bottom) {
-        if (layout == null) return;
-        try {
-            ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) layout.getLayoutParams();
-            if (left == -1) left = mlp.leftMargin;
-            if (right == -1) right = mlp.rightMargin;
-            if (top == -1) top = mlp.topMargin;
-            if (bottom == -1) bottom = mlp.bottomMargin;
-            mlp.setMargins(left, top, right, bottom);
-            layout.requestLayout();
-        } catch (Exception e) {
-            Log.e("Error", "to change dimension");
-        }
-    }
 }
