@@ -3,24 +3,15 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".WithFragmentsActivity">
+                >
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
-        android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        />
+    <include android:id="@+id/toolbar" layout="@layout/toolbar"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar1"
+        android:layout_below="@+id/toolbar"
         android:background="?attr/colorPrimary"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"

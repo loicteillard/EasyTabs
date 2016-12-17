@@ -2,29 +2,37 @@ package com.loicteillard.easytabs.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
-    public void inside(View v) {
-        Intent intent = new Intent(this, InsideActivity.class);
-        startActivity(intent);
+    public void EasyTabText(View v) {
+        startActivity(new Intent(this,EasyTabTextActivity.class));
     }
 
-    public void fragments(View v) {
-        Intent intent = new Intent(this, WithFragmentsActivity.class);
-        startActivity(intent);
+    public void EasyTabIcon(View v) {
+        startActivity(new Intent(this,EasyTabIconActivity.class));
     }
+
+    public void EasyTabIcon2(View v) {
+        startActivity(new Intent(this,EasyTabIcon2Activity.class));
+    }
+
+    public void TabLayoutText(View v) {
+        startActivity(new Intent(this,TabLayoutTextActivity.class));
+    }
+
+    public void TabLayoutIcon(View v) {
+        startActivity(new Intent(this,TabLayoutIconActivity.class));
+    }
+
 
 
 

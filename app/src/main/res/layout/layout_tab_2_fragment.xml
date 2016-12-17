@@ -12,7 +12,6 @@
         android:textAllCaps="true"
         android:text="fragment 2"
         android:layout_centerInParent="true"
-        android:textColor="@color/dark_black"
         />
 
 </RelativeLayout>

@@ -1,27 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="viexpager with simple views inside the same activity"
-        android:onClick="inside"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:elevation="6dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
-        android:text="viewpager with fragments"
-        android:onClick="fragments"
-        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/md_deep_orange_300"
+                android:onClick="EasyTabText"
+                android:padding="20dp"
+                android:text="EasyTab (Text)"
+                android:textColor="@color/md_grey_900"
+                />
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/md_deep_orange_300"
+                android:onClick="EasyTabIcon"
+                android:padding="20dp"
+                android:text="EasyTab (Icon)"
+                android:textColor="@color/md_grey_900"
+                />
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/md_deep_orange_300"
+                android:onClick="EasyTabIcon2"
+                android:padding="20dp"
+                android:text="EasyTab (Icon 2)"
+                android:textColor="@color/md_grey_900"
+                />
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/md_deep_orange_300"
+                android:onClick="TabLayoutText"
+                android:padding="20dp"
+                android:text="Classic TabLayout (Text)"
+                android:textColor="@color/md_grey_900"
+                />
+
+            <Button
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/md_deep_orange_300"
+                android:onClick="TabLayoutIcon"
+                android:padding="20dp"
+                android:text="Classic TabLayout (Icon)"
+                android:textColor="@color/md_grey_900"
+                />
+
+
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

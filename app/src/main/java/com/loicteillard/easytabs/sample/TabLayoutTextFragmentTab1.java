@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Tab_3_Activity extends Fragment {
+public class TabLayoutTextFragmentTab1 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.activity_tab_3, container, false);
+        return inflater.inflate(R.layout.tablayouttext_fragment_tab_1, container, false);
 
     }
 }

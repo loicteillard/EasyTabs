@@ -3,26 +3,20 @@ package com.loicteillard.easytabs.sample;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
-public class WithFragmentsActivity extends AppCompatActivity {
+public class TabLayoutTextActivity extends BaseActivity {
 
-    Toolbar toolbar ;
-    TabLayout tabLayout ;
-    ViewPager viewPager ;
-    FragmentAdapterClass fragmentAdapter ;
+    TabLayout tabLayout;
+    ViewPager viewPager;
+    TabLayoutTextFragmentAdapter fragmentAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tab_layout_text);
 
-        setContentView(R.layout.activity_with_fragments);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar1);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout1);
         viewPager = (ViewPager) findViewById(R.id.pager1);
-
-        setSupportActionBar(toolbar);
 
         tabLayout.addTab(tabLayout.newTab().setText("TAB 1"));
         tabLayout.addTab(tabLayout.newTab().setText("TAB 2"));
@@ -30,13 +24,13 @@ public class WithFragmentsActivity extends AppCompatActivity {
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        fragmentAdapter = new FragmentAdapterClass(getSupportFragmentManager(), tabLayout.getTabCount());
+        fragmentAdapter = new TabLayoutTextFragmentAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
 
         viewPager.setAdapter(fragmentAdapter);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab LayoutTab) {
 
@@ -54,4 +48,6 @@ public class WithFragmentsActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

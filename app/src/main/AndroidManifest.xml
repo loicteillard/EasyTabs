@@ -16,12 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".InsideActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".WithFragmentsActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".TabLayoutTextActivity">
+        </activity>
+        <activity android:name=".TabLayoutIconActivity">
+        </activity>
+        <activity android:name=".EasyTabTextActivity">
+        </activity>
+        <activity android:name=".EasyTabIconActivity">
+        </activity>
+        <activity android:name=".EasyTabIcon2Activity">
+        </activity>
     </application>
 
 </manifest>

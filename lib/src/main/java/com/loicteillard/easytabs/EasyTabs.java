@@ -1,7 +1,6 @@
 package com.loicteillard.easytabs;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 public class EasyTabs extends LinearLayout {
 
     private Context context;
-    private TextView tab1,tab2;
+    private TextView tab1,tab2,tab3;
     private View indicator;
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -26,9 +25,6 @@ public class EasyTabs extends LinearLayout {
     public EasyTabs(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-//        TypedArray attrsArray 	= context.obtainStyledAttributes(attrs,R.styleable.FancyButtonsAttrs, 0, 0);
-//        initAttributesArray(attrsArray);
-//        attrsArray.recycle();
         initialize();
     }
 
@@ -57,7 +53,8 @@ public class EasyTabs extends LinearLayout {
 
         tab1 = createTab();
         tab2 = createTab();
-        View separator = createSeparator();
+        tab3 = createTab();
+//        View separator = createSeparator(); // separator in middle (for 2 tabs)
         indicator = createIndicator();
 
         // add views
@@ -65,9 +62,10 @@ public class EasyTabs extends LinearLayout {
 
         layoutTabs.addView(tab1);
         layoutTabs.addView(tab2);
+        layoutTabs.addView(tab3);
 
         relativeLayout.addView(layoutTabs);
-        relativeLayout.addView(separator);
+//        relativeLayout.addView(separator); // separator in middle (for 2 tabs)
 
         addView(relativeLayout);
         addView(indicator);
@@ -93,17 +91,17 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    private View createSeparator() {
-        View view = new View(context);
-        RelativeLayout.LayoutParams sepParams = new RelativeLayout.LayoutParams(Utils.dpToPx(1), Utils.dpToPx(15));
-        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
-
-        sepParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-
-        view.setLayoutParams(sepParams);
-
-        return view;
-    }
+//    private View createSeparator() {
+//        View view = new View(context);
+//        RelativeLayout.LayoutParams sepParams = new RelativeLayout.LayoutParams(Utils.dpToPx(1), Utils.dpToPx(15));
+//        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
+//
+//        sepParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+//
+//        view.setLayoutParams(sepParams);
+//
+//        return view;
+//    }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -126,6 +124,12 @@ public class EasyTabs extends LinearLayout {
 
     public TextView getTab2() {
         return tab2;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public TextView getTab3() {
+        return tab3;
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

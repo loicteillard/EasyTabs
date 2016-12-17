@@ -2,10 +2,9 @@ package com.loicteillard.easytabs.sample;
 
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,26 +12,31 @@ import android.widget.TextView;
 
 import com.loicteillard.easytabs.EasyTabs;
 
-public class InsideActivity extends AppCompatActivity {
+public class EasyTabTextActivity extends BaseActivity {
 
-    private TextView mTab1, mTab2;
+    private TextView mTab1, mTab2, mTab3;
     private View mIndicator;
     private ViewPager mViewPager;
     private EasyTabs mEasyTabs;
 
+//    private EasyTabsPagerEnum mEasyTabsPagerEnum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_inside);
+        setContentView(R.layout.activity_easy_tab_text);
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mEasyTabs = (EasyTabs) findViewById(R.id.easytabs);
+
         mTab1 = mEasyTabs.getTab1();
         mTab2 = mEasyTabs.getTab2();
+        mTab3 = mEasyTabs.getTab3();
         mIndicator = mEasyTabs.getIndicator();
 
         mTab1.setText(EasyTabsPagerEnum.TAB_1.getTitleResId());
         mTab2.setText(EasyTabsPagerEnum.TAB_2.getTitleResId());
+        mTab3.setText(EasyTabsPagerEnum.TAB_3.getTitleResId());
 
         mTab1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,21 +51,14 @@ public class InsideActivity extends AppCompatActivity {
                 switchState(EasyTabsPagerEnum.TAB_2);
             }
         });
-
-        final EasyTabsAdapter pagerAdapter = new EasyTabsAdapter(this, new EasyTabsAdapter.PagerInterface() {
+        mTab3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void isInstancied(ViewGroup layout, EasyTabsPagerEnum pagerEnum) {
-
-                switch (pagerEnum) {
-                    case TAB_1:
-                        populateTab1Content(layout);
-                        break;
-                    case TAB_2:
-                        populateTab2Content(layout);
-                        break;
-                }
+            public void onClick(View view) {
+                switchState(EasyTabsPagerEnum.TAB_3);
             }
         });
+
+        EasyTabTextFragmentAdapter pagerAdapter = new EasyTabTextFragmentAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -81,19 +78,7 @@ public class InsideActivity extends AppCompatActivity {
 
             }
         });
-
-        // Init tabs
         switchState(EasyTabsPagerEnum.TAB_1);
-    }
-
-    private void populateTab1Content(ViewGroup layout) {
-        TextView content = (TextView) layout.findViewById(R.id.content);
-        content.setText("Content 1");
-    }
-
-    private void populateTab2Content(ViewGroup layout) {
-        TextView content = (TextView) layout.findViewById(R.id.content);
-        content.setText("Content 2");
     }
 
     private void switchState(EasyTabsPagerEnum pagerEnum) {
@@ -102,16 +87,18 @@ public class InsideActivity extends AppCompatActivity {
 
         switch (pagerEnum) {
             case TAB_1:
-                unselected = ContextCompat.getColor(this, R.color.dark_grey);
-                selected = ContextCompat.getColor(this, R.color.purple);
+                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
+                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
                 mTab1.setTextColor(selected);
                 mTab2.setTextColor(unselected);
+                mTab3.setTextColor(unselected);
                 mIndicator.setBackgroundColor(selected);
-                mIndicator.animate().translationX(mTab1.getX()).setDuration(200);
+
                 mTab1.post(
                         new Runnable() {
                             @Override
                             public void run() {
+                                mIndicator.animate().translationX(mTab1.getX()).setDuration(200);
                                 int padding = getTextWidth(mTab1);
                                 int tabWidth = mTab1.getMeasuredWidth();
                                 setDimensionLayout(mIndicator, padding, -1);
@@ -123,18 +110,40 @@ public class InsideActivity extends AppCompatActivity {
                 break;
 
             case TAB_2:
-                unselected = ContextCompat.getColor(this, R.color.dark_grey);
-                selected = ContextCompat.getColor(this, R.color.purple);
+                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
+                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
                 mTab1.setTextColor(unselected);
                 mTab2.setTextColor(selected);
+                mTab3.setTextColor(unselected);
                 mIndicator.setBackgroundColor(selected);
-                mIndicator.animate().translationX(mTab2.getX()).setDuration(200);
                 mTab2.post(
                         new Runnable() {
                             @Override
                             public void run() {
+                                mIndicator.animate().translationX(mTab2.getX()).setDuration(200);
                                 int padding = getTextWidth(mTab2);
                                 int tabWidth = mTab2.getMeasuredWidth();
+                                setDimensionLayout(mIndicator, padding, -1);
+                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
+                            }
+                        }
+                );
+                break;
+
+            case TAB_3:
+                unselected = ContextCompat.getColor(this, R.color.md_grey_700);
+                selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
+                mTab1.setTextColor(unselected);
+                mTab2.setTextColor(unselected);
+                mTab3.setTextColor(selected);
+                mIndicator.setBackgroundColor(selected);
+                mTab3.post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                mIndicator.animate().translationX(mTab3.getX()).setDuration(200);
+                                int padding = getTextWidth(mTab3);
+                                int tabWidth = mTab3.getMeasuredWidth();
                                 setDimensionLayout(mIndicator, padding, -1);
                                 setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
@@ -144,6 +153,7 @@ public class InsideActivity extends AppCompatActivity {
         }
 
         mViewPager.setCurrentItem(pagerEnum.ordinal(), true);
+        mViewPager.setTag(R.integer.key_viewpager_tag, pagerEnum);
     }
 
     private int getTextWidth(TextView tv) {
@@ -191,5 +201,4 @@ public class InsideActivity extends AppCompatActivity {
             Log.e("Error", "to change dimension");
         }
     }
-
 }
