@@ -8,11 +8,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class EasyTabs extends LinearLayout {
 
     private Context context;
-    private TextView tab1,tab2,tab3;
     private View indicator;
+    private ArrayList<TextView> mTabs;
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -51,24 +53,40 @@ public class EasyTabs extends LinearLayout {
 
         //--------------
 
-        tab1 = createTab();
-        tab2 = createTab();
-        tab3 = createTab();
+        for (int i = 0; i < getChildCount(); i++) {
+            TextView textView = (TextView) getChildAt(i);
+            addTab(prepareTab(textView));
+        }
+
 //        View separator = createSeparator(); // separator in middle (for 2 tabs)
         indicator = createIndicator();
 
         // add views
         // -------------
 
-        layoutTabs.addView(tab1);
-        layoutTabs.addView(tab2);
-        layoutTabs.addView(tab3);
+        for (TextView textView : getTabs()) {
+            layoutTabs.addView(textView);
+        }
 
         relativeLayout.addView(layoutTabs);
 //        relativeLayout.addView(separator); // separator in middle (for 2 tabs)
 
         addView(relativeLayout);
         addView(indicator);
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    private TextView prepareTab(TextView tab) {
+        tab.setGravity(Gravity.CENTER);
+        tab.setPadding(0, 0, 0, Utils.dpToPx(5));
+
+        LinearLayout.LayoutParams textViewParams1 = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textViewParams1.weight = 1f;
+        textViewParams1.gravity = Gravity.CENTER;
+        tab.setLayoutParams(textViewParams1);
+
+        return tab;
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -116,20 +134,16 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public TextView getTab1() {
-        return tab1;
+    public void addTab(TextView textView) {
+        if (textView == null) return;
+        getTabs().add(textView);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public TextView getTab2() {
-        return tab2;
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------------
-
-    public TextView getTab3() {
-        return tab3;
+    public ArrayList<TextView> getTabs() {
+        if (mTabs == null) mTabs = new ArrayList<>();
+        return mTabs;
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

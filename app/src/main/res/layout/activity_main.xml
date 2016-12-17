@@ -60,7 +60,7 @@
                 android:background="@color/md_deep_orange_300"
                 android:onClick="EasyTabIcon2"
                 android:padding="20dp"
-                android:text="EasyTab (Icon 2)"
+                android:text="EasyTab (Text+Icon)"
                 android:textColor="@color/md_grey_900"
                 />
 

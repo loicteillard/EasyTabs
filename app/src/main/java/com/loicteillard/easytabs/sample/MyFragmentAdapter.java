@@ -4,15 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class EasyTabTextFragmentAdapter extends FragmentStatePagerAdapter {
+public class MyFragmentAdapter extends FragmentStatePagerAdapter {
 
-    private static final int TAB_1 = 0;
-    private static final int TAB_2 = 1;
-    private static final int TAB_3 = 2;
+    public static final int TAB_1 = 0;
+    public static final int TAB_2 = 1;
+    public static final int TAB_3 = 2;
 
     private static final int NB_TABS = 3;
 
-    public EasyTabTextFragmentAdapter(FragmentManager fragmentManager) {
+    public MyFragmentAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 

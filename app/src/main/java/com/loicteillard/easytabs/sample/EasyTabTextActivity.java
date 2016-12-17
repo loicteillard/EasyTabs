@@ -19,8 +19,6 @@ public class EasyTabTextActivity extends BaseActivity {
     private ViewPager mViewPager;
     private EasyTabs mEasyTabs;
 
-//    private EasyTabsPagerEnum mEasyTabsPagerEnum;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,36 +27,31 @@ public class EasyTabTextActivity extends BaseActivity {
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mEasyTabs = (EasyTabs) findViewById(R.id.easytabs);
 
-        mTab1 = mEasyTabs.getTab1();
-        mTab2 = mEasyTabs.getTab2();
-        mTab3 = mEasyTabs.getTab3();
+        mTab1 = mEasyTabs.getTabs().get(0);
+        mTab2 = mEasyTabs.getTabs().get(1);
+        mTab3 = mEasyTabs.getTabs().get(2);
         mIndicator = mEasyTabs.getIndicator();
-
-        mTab1.setText(EasyTabsPagerEnum.TAB_1.getTitleResId());
-        mTab2.setText(EasyTabsPagerEnum.TAB_2.getTitleResId());
-        mTab3.setText(EasyTabsPagerEnum.TAB_3.getTitleResId());
 
         mTab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchState(EasyTabsPagerEnum.TAB_1);
+                switchState(MyFragmentAdapter.TAB_1);
             }
         });
-
         mTab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchState(EasyTabsPagerEnum.TAB_2);
+                switchState(MyFragmentAdapter.TAB_2);
             }
         });
         mTab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switchState(EasyTabsPagerEnum.TAB_3);
+                switchState(MyFragmentAdapter.TAB_3);
             }
         });
 
-        EasyTabTextFragmentAdapter pagerAdapter = new EasyTabTextFragmentAdapter(getSupportFragmentManager());
+        MyFragmentAdapter pagerAdapter = new MyFragmentAdapter(getSupportFragmentManager());
 
         mViewPager.setAdapter(pagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -69,7 +62,7 @@ public class EasyTabTextActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switchState(EasyTabsPagerEnum.values()[position]);
+                switchState(position);
 
             }
 
@@ -78,15 +71,15 @@ public class EasyTabTextActivity extends BaseActivity {
 
             }
         });
-        switchState(EasyTabsPagerEnum.TAB_1);
+        switchState(MyFragmentAdapter.TAB_1);
     }
 
-    private void switchState(EasyTabsPagerEnum pagerEnum) {
+    private void switchState(int tab) {
 
         int unselected, selected;
 
-        switch (pagerEnum) {
-            case TAB_1:
+        switch (tab) {
+            case MyFragmentAdapter.TAB_1:
                 unselected = ContextCompat.getColor(this, R.color.md_grey_700);
                 selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
                 mTab1.setTextColor(selected);
@@ -109,7 +102,7 @@ public class EasyTabTextActivity extends BaseActivity {
 
                 break;
 
-            case TAB_2:
+            case MyFragmentAdapter.TAB_2:
                 unselected = ContextCompat.getColor(this, R.color.md_grey_700);
                 selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
                 mTab1.setTextColor(unselected);
@@ -130,7 +123,7 @@ public class EasyTabTextActivity extends BaseActivity {
                 );
                 break;
 
-            case TAB_3:
+            case MyFragmentAdapter.TAB_3:
                 unselected = ContextCompat.getColor(this, R.color.md_grey_700);
                 selected = ContextCompat.getColor(this, R.color.md_deep_orange_A200);
                 mTab1.setTextColor(unselected);
@@ -152,8 +145,7 @@ public class EasyTabTextActivity extends BaseActivity {
                 break;
         }
 
-        mViewPager.setCurrentItem(pagerEnum.ordinal(), true);
-        mViewPager.setTag(R.integer.key_viewpager_tag, pagerEnum);
+        mViewPager.setCurrentItem(tab, true);
     }
 
     private int getTextWidth(TextView tv) {

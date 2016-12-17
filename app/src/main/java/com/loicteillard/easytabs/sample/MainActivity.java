@@ -13,6 +13,8 @@ public class MainActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
+//    keep just text+icons for both
+
     public void EasyTabText(View v) {
         startActivity(new Intent(this,EasyTabTextActivity.class));
     }
@@ -22,7 +24,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void EasyTabIcon2(View v) {
-        startActivity(new Intent(this,EasyTabIcon2Activity.class));
+        startActivity(new Intent(this,EasyTabTextIconActivity.class));
     }
 
     public void TabLayoutText(View v) {
