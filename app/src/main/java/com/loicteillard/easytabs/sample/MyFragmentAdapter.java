@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class MyFragmentAdapter extends FragmentStatePagerAdapter {
 
-    public static final int TAB_1 = 0;
-    public static final int TAB_2 = 1;
-    public static final int TAB_3 = 2;
+    private static final int TAB_1 = 0;
+    private static final int TAB_2 = 1;
+    private static final int TAB_3 = 2;
 
     private static final int NB_TABS = 3;
 

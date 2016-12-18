@@ -11,23 +11,12 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        >
-
         <com.loicteillard.easytabs.EasyTabs
             android:id="@+id/easytabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginTop="30dp"
             easytabs:selected_color="@color/md_deep_orange_A200"
             easytabs:unselected_color="@color/md_grey_700"
             >
@@ -59,9 +48,6 @@
                 android:layout_height="match_parent"/>
 
             </com.loicteillard.easytabs.EasyTabs>
-
-
-    </LinearLayout>
 
 
 </RelativeLayout>
