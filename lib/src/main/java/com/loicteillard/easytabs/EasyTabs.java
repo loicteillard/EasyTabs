@@ -79,8 +79,7 @@ public class EasyTabs extends LinearLayout {
                         addTab(prepareTab(textView));
                     } else if (view instanceof ViewPager) {
                         mViewPager = (ViewPager) view;
-                        if (mPagerAdapter == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
-                        mViewPager.setAdapter(mPagerAdapter);
+                        mViewPager.setAdapter(getPagerAdapter());
                     }
                 }
 
@@ -151,6 +150,14 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
+    public PagerAdapter getPagerAdapter() {
+        if (mPagerAdapter == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
+        if (mPagerAdapter.getCount() != getTabs().size()) throw new IllegalStateException("Adapter must have the same number of items than tabs !");
+        return mPagerAdapter;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
     public void setViewPagerAdapter(PagerAdapter pagerAdapter) {
         mPagerAdapter = pagerAdapter;
     }
@@ -167,74 +174,31 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    private void switchState(int tab) {
+    private void switchState(int selected) {
 
-        final TextView tab1 = getTabs().get(0);
-        final TextView tab2 = getTabs().get(1);
-        final TextView tab3 = getTabs().get(2);
+        mIndicator.setBackgroundColor(mSelectedColor);
 
-        switch (tab) {
-            case 0:
-                tab1.setTextColor(mSelectedColor);
-                tab2.setTextColor(mUnselectedColor);
-                tab3.setTextColor(mUnselectedColor);
-                mIndicator.setBackgroundColor(mSelectedColor);
+        for (int i = 0; i < getPagerAdapter().getCount(); i++) {
+            final TextView tab = getTabs().get(i);
+            tab.setTextColor((i == selected) ? mSelectedColor : mUnselectedColor);
 
-                tab1.post(
+            if (i == selected) {
+                tab.post(
                         new Runnable() {
                             @Override
                             public void run() {
-                                mIndicator.animate().translationX(tab1.getX()).setDuration(200);
-                                int padding = ETUtils.getTextWidth(tab1);
-                                int tabWidth = tab1.getMeasuredWidth();
+                                mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                int padding = ETUtils.getTextWidth(tab);
+                                int tabWidth = tab.getMeasuredWidth();
                                 ETUtils.setDimensionLayout(mIndicator, padding, -1);
                                 setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
                         }
                 );
-
-                break;
-
-            case 1:
-                tab1.setTextColor(mUnselectedColor);
-                tab2.setTextColor(mSelectedColor);
-                tab3.setTextColor(mUnselectedColor);
-                mIndicator.setBackgroundColor(mSelectedColor);
-                tab2.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(tab2.getX()).setDuration(200);
-                                int padding = ETUtils.getTextWidth(tab2);
-                                int tabWidth = tab2.getMeasuredWidth();
-                                ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                            }
-                        }
-                );
-                break;
-
-            case 2:
-                tab1.setTextColor(mUnselectedColor);
-                tab2.setTextColor(mUnselectedColor);
-                tab3.setTextColor(mSelectedColor);
-                mIndicator.setBackgroundColor(mSelectedColor);
-                tab3.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(tab3.getX()).setDuration(200);
-                                int padding = ETUtils.getTextWidth(tab3);
-                                int tabWidth = tab3.getMeasuredWidth();
-                                ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                            }
-                        }
-                );
-                break;
+            }
         }
 
-        getViewPager().setCurrentItem(tab, true);
+        getViewPager().setCurrentItem(selected, true);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
