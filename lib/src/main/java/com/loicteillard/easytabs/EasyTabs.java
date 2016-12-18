@@ -3,6 +3,7 @@ package com.loicteillard.easytabs;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -23,6 +24,7 @@ public class EasyTabs extends LinearLayout {
     private ArrayList<TextView> mTabs;
     private int mSelectedColor, mUnselectedColor;
     private ViewPager mViewPager;
+    private PagerAdapter mPagerAdapter;
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -45,16 +47,18 @@ public class EasyTabs extends LinearLayout {
 
     private void initialize(AttributeSet attrs) {
 
+        // Read custom values
         TypedArray attrsArray = getContext().obtainStyledAttributes(attrs, R.styleable.EasyTabsAttrs, 0, 0);
         initAttributesArray(attrsArray);
         attrsArray.recycle();
 
+        // Prepare current viewgroup layout
         setOrientation(VERTICAL);
         LinearLayout.LayoutParams lParams = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         setLayoutParams(lParams);
 
-        //--------------
 
+        // Prepare layout for tabs
         final RelativeLayout relativeLayout = new RelativeLayout(getContext());
         RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         relativeLayout.setLayoutParams(rParams);
@@ -62,20 +66,32 @@ public class EasyTabs extends LinearLayout {
         layoutTabs.setOrientation(HORIZONTAL);
         layoutTabs.setLayoutParams(lParams);
 
-        //--------------
-
+        // Add childs views
         post(new Runnable() {
             @Override
             public void run() {
 
                 for (int i = 0; i < getChildCount(); i++) {
-                    TextView textView = (TextView) getChildAt(i);
-                    addTab(prepareTab(textView));
+
+                    View view = getChildAt(i);
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        addTab(prepareTab(textView));
+                    } else if (view instanceof ViewPager) {
+                        mViewPager = (ViewPager) view;
+                        if (mPagerAdapter == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
+                        mViewPager.setAdapter(mPagerAdapter);
+                    }
                 }
 
+                // Clear views (childs can have only one parent)
+                removeAllViews();
+
+                // Create custom stuff
 //        View separator = createSeparator(); // separator in middle (for 2 tabs)
                 mIndicator = createIndicator();
 
+                // Add tabs items
                 int index = 0;
                 for (TextView textView : getTabs()) {
                     layoutTabs.addView(textView);
@@ -92,15 +108,51 @@ public class EasyTabs extends LinearLayout {
 
                 }
 
+                // Listener to change state
+                getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        switchState(position);
+
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+
+                // Initial state on the first item
                 switchState(0);
 
+                // Add views
                 relativeLayout.addView(layoutTabs);
                 //        relativeLayout.addView(separator); // separator in middle (for 2 tabs)
 
+                // At the end, add views to the main viewgroup
                 addView(relativeLayout);
                 addView(mIndicator);
+                addView(mViewPager);
             }
         });
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public ViewPager getViewPager() {
+        if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please add a viewpager as a child of the layout !");
+        return mViewPager;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public void setViewPagerAdapter(PagerAdapter pagerAdapter) {
+        mPagerAdapter = pagerAdapter;
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -111,7 +163,6 @@ public class EasyTabs extends LinearLayout {
 
         mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_selected_color, Color.BLACK);
         mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_unselected_color, Color.BLACK);
-        mViewPager = (ViewPager) findViewById(attrsArray.getResourceId(R.styleable.EasyTabsAttrs_attached_viewpager,0));
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -183,7 +234,7 @@ public class EasyTabs extends LinearLayout {
                 break;
         }
 
-        mViewPager.setCurrentItem(tab, true);
+        getViewPager().setCurrentItem(tab, true);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

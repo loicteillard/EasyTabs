@@ -30,7 +30,6 @@
             android:paddingTop="10dp"
             easytabs:selected_color="@color/md_deep_orange_A200"
             easytabs:unselected_color="@color/md_grey_700"
-            easytabs:attached_viewpager="@id/viewpager"
             >
 
             <TextView
@@ -54,12 +53,14 @@
                 android:textAllCaps="true"
                 />
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
             </com.loicteillard.easytabs.EasyTabs>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+
     </LinearLayout>
 
 

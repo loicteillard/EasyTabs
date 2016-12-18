@@ -3,6 +3,5 @@
     <declare-styleable name="EasyTabsAttrs">
         <attr name="selected_color" format="color"/>
         <attr name="unselected_color" format="color"/>
-        <attr name="attached_viewpager" format="reference"/>
     </declare-styleable>
 </resources>
