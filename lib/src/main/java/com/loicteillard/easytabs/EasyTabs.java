@@ -16,8 +16,6 @@ import java.util.ArrayList;
 
 import loic.teillard.easytabs.R;
 
-import static com.loicteillard.easytabs.ETUtils.setMarginsLayout;
-
 public class EasyTabs extends LinearLayout {
 
     private View mIndicator;
@@ -87,13 +85,13 @@ public class EasyTabs extends LinearLayout {
                 removeAllViews();
 
                 // Create custom stuff
-//        View separator = createSeparator(); // separator in middle (for 2 tabs)
                 mIndicator = createIndicator();
 
                 // Add tabs items
                 int index = 0;
                 for (TextView textView : getTabs()) {
                     layoutTabs.addView(textView);
+                    layoutTabs.addView(createSeparator());
 
                     final int finalIndex = index;
                     textView.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +129,6 @@ public class EasyTabs extends LinearLayout {
 
                 // Add views
                 relativeLayout.addView(layoutTabs);
-                //        relativeLayout.addView(separator); // separator in middle (for 2 tabs)
 
                 // At the end, add views to the main viewgroup
                 addView(relativeLayout);
@@ -191,7 +188,7 @@ public class EasyTabs extends LinearLayout {
                                 int padding = ETUtils.getTextWidth(tab);
                                 int tabWidth = tab.getMeasuredWidth();
                                 ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
+                                ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
                         }
                 );
@@ -217,27 +214,23 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-//    private TextView createTab() {
-//        TextView tab = new TextView(getContext());
-//        tab.setGravity(Gravity.CENTER);
-//        tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
-//
-//        LinearLayout.LayoutParams textViewParams1 = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        textViewParams1.weight = 1f;
-//        textViewParams1.gravity = Gravity.CENTER;
-//        tab.setLayoutParams(textViewParams1);
-//
-//        tab.setAllCaps(true);
-//        tab.setTextSize(17f);
-//
-//        return tab;
-//    }
+    private View createSeparator() {
+
+        View view = new View(getContext());
+        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
+
+        LinearLayout.LayoutParams params = new LayoutParams(ETUtils.dpToPx(1), ETUtils.dpToPx(15));
+        params.gravity = Gravity.RIGHT;
+        view.setLayoutParams(params);
+
+        return view;
+    }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
 //    private View createSeparator() {
-//        View view = new View(context);
-//        RelativeLayout.LayoutParams sepParams = new RelativeLayout.LayoutParams(Utils.dpToPx(1), Utils.dpToPx(15));
+//        View view = new View(getContext());
+//        RelativeLayout.LayoutParams sepParams = new RelativeLayout.LayoutParams(ETUtils.dpToPx(1), ETUtils.dpToPx(15));
 //        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
 //
 //        sepParams.addRule(RelativeLayout.CENTER_IN_PARENT);
