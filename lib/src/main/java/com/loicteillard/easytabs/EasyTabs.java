@@ -19,6 +19,8 @@ import loic.teillard.easytabs.R;
 public class EasyTabs extends LinearLayout {
 
     private View mIndicator;
+    private boolean mSeparatorsEnabled;
+    private boolean mIndicatorEnabled;
     private ArrayList<TextView> mTabs;
     private int mSelectedColor, mUnselectedColor;
     private ViewPager mViewPager;
@@ -91,7 +93,7 @@ public class EasyTabs extends LinearLayout {
                 int index = 0;
                 for (TextView textView : getTabs()) {
                     layoutTabs.addView(textView);
-                    layoutTabs.addView(createSeparator());
+                    if (mSeparatorsEnabled) layoutTabs.addView(createSeparator());
 
                     final int finalIndex = index;
                     textView.setOnClickListener(new View.OnClickListener() {
@@ -132,7 +134,7 @@ public class EasyTabs extends LinearLayout {
 
                 // At the end, add views to the main viewgroup
                 addView(relativeLayout);
-                addView(mIndicator);
+                if (mIndicatorEnabled) addView(mIndicator);
                 addView(mViewPager);
             }
         });
@@ -165,8 +167,10 @@ public class EasyTabs extends LinearLayout {
 
         if (attrsArray == null) return;
 
-        mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_selected_color, Color.BLACK);
-        mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_unselected_color, Color.BLACK);
+        mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_selected_color, Color.BLACK);
+        mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_unselected_color, Color.BLACK);
+        mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
+        mIndicatorEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicator, true);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

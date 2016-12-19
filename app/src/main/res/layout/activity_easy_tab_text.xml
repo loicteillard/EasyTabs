@@ -17,8 +17,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/toolbar"
             android:layout_marginTop="30dp"
-            easytabs:selected_color="@color/md_deep_orange_A200"
-            easytabs:unselected_color="@color/md_grey_700"
+            easytabs:etab_selected_color="@color/md_deep_orange_A200"
+            easytabs:etab_unselected_color="@color/md_grey_700"
+            easytabs:etab_separators="false"
+            easytabs:etab_indicator="true"
             >
 
             <TextView

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="EasyTabsAttrs">
-        <attr name="selected_color" format="color"/>
-        <attr name="unselected_color" format="color"/>
+        <attr name="etab_selected_color" format="color"/>
+        <attr name="etab_unselected_color" format="color"/>
+        <attr name="etab_separators" format="boolean"/>
+        <attr name="etab_indicator" format="boolean"/>
     </declare-styleable>
 </resources>
