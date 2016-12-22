@@ -9,7 +9,6 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,9 +58,9 @@ public class EasyTabs extends LinearLayout {
 
 
         // Prepare layout for tabs
-        final RelativeLayout relativeLayout = new RelativeLayout(getContext());
-        RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        relativeLayout.setLayoutParams(rParams);
+//        final RelativeLayout relativeLayout = new RelativeLayout(getContext());
+//        RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        relativeLayout.setLayoutParams(rParams);
         final LinearLayout layoutTabs = new LinearLayout(getContext());
         layoutTabs.setOrientation(HORIZONTAL);
         layoutTabs.setLayoutParams(lParams);
@@ -130,10 +129,11 @@ public class EasyTabs extends LinearLayout {
                 switchState(0);
 
                 // Add views
-                relativeLayout.addView(layoutTabs);
+//                relativeLayout.addView(layoutTabs);
+                addView(layoutTabs);
 
                 // At the end, add views to the main viewgroup
-                addView(relativeLayout);
+//                addView(relativeLayout);
                 if (mIndicatorEnabled) addView(mIndicator);
                 addView(mViewPager);
             }
