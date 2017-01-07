@@ -24,7 +24,7 @@ public class EasyTabs extends LinearLayout {
     private View mIndicator;
     private boolean mSeparatorsEnabled;
     private boolean mIndicatorsEnabled;
-    private ArrayList<TextView> mTabs;
+    private ArrayList<View> mTabs;
     private int mSelectedColor, mUnselectedColor;
     private int mSeparatorWidth, mSeparatorSize;
     private ViewPager mViewPager;
@@ -95,12 +95,12 @@ public class EasyTabs extends LinearLayout {
 
                 // Add tabs items
                 int index = 0;
-                for (TextView textView : getTabs()) {
-                    layoutTabs.addView(textView);
+                for (View view : getTabs()) {
+                    layoutTabs.addView(view);
                     if (mSeparatorsEnabled) layoutTabs.addView(createSeparator());
 
                     final int finalIndex = index;
-                    textView.setOnClickListener(new View.OnClickListener() {
+                    view.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             switchState(finalIndex);
@@ -187,34 +187,38 @@ public class EasyTabs extends LinearLayout {
         mIndicator.setBackgroundColor(mSelectedColor);
 
         for (int i = 0; i < getPagerAdapter().getCount(); i++) {
-            final TextView tab = getTabs().get(i);
-            tab.setTextColor((i == selected) ? mSelectedColor : mUnselectedColor);
+            View view = getTabs().get(i);
+            if (view instanceof TextView) {
+                final TextView tab = (TextView) getTabs().get(i);
+                tab.setTextColor((i == selected) ? mSelectedColor : mUnselectedColor);
 
-            if (i == selected) {
-                tab.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                mIndicator.animate().translationX(tab.getX()).setDuration(200);
-                                int padding = 0;
-                                int tabWidth = tab.getMeasuredWidth();
-                                switch (mSeparatorWidth) {
-                                    case SEP_MATCH:
-                                        padding = ETUtils.getTextWidth(tab);
-                                        break;
-                                    case SEP_FIXED:
-                                        padding = mSeparatorSize;
-                                        break;
-                                    case SEP_FULL:
-                                        padding = tabWidth;
-                                        break;
+                if (i == selected) {
+                    tab.post(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                    int padding = 0;
+                                    int tabWidth = tab.getMeasuredWidth();
+                                    switch (mSeparatorWidth) {
+                                        case SEP_MATCH:
+                                            padding = ETUtils.getTextWidth(tab);
+                                            break;
+                                        case SEP_FIXED:
+                                            padding = mSeparatorSize;
+                                            break;
+                                        case SEP_FULL:
+                                            padding = tabWidth;
+                                            break;
+                                    }
+                                    ETUtils.setDimensionLayout(mIndicator, padding, -1);
+                                    ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                                 }
-                                ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
-                        }
-                );
+                    );
+                }
             }
+
         }
 
         getViewPager().setCurrentItem(selected, true);
@@ -275,14 +279,14 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public void addTab(TextView textView) {
-        if (textView == null) return;
-        getTabs().add(textView);
+    public void addTab(View view) {
+        if (view == null) return;
+        getTabs().add(view);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public ArrayList<TextView> getTabs() {
+    public ArrayList<View> getTabs() {
         if (mTabs == null) mTabs = new ArrayList<>();
         return mTabs;
     }
