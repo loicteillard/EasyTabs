@@ -3,6 +3,12 @@
     <declare-styleable name="EasyTabsAttrs">
         <attr name="etab_selected_color" format="color"/>
         <attr name="etab_unselected_color" format="color"/>
+        <attr name="etab_separator_size" format="dimension"/>
+        <attr name="etab_separator_width" format="enum">
+            <enum name="match" value="0"/>
+            <enum name="fixed" value="1"/>
+            <enum name="full" value="2"/>
+            </attr>
         <attr name="etab_separators" format="boolean"/>
         <attr name="etab_indicator" format="boolean"/>
     </declare-styleable>

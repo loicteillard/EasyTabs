@@ -17,11 +17,16 @@ import loic.teillard.easytabs.R;
 
 public class EasyTabs extends LinearLayout {
 
+    public static final int SEP_MATCH = 0;
+    public static final int SEP_FIXED = 1;
+    public static final int SEP_FULL = 2;
+
     private View mIndicator;
     private boolean mSeparatorsEnabled;
     private boolean mIndicatorEnabled;
     private ArrayList<TextView> mTabs;
     private int mSelectedColor, mUnselectedColor;
+    private int mSeparatorWidth, mSeparatorSize;
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
 
@@ -169,6 +174,8 @@ public class EasyTabs extends LinearLayout {
 
         mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_selected_color, Color.BLACK);
         mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_unselected_color, Color.BLACK);
+        mSeparatorWidth = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_separator_width, SEP_MATCH);
+        mSeparatorSize = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_separator_size, 0);
         mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
         mIndicatorEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicator, true);
     }
@@ -189,8 +196,19 @@ public class EasyTabs extends LinearLayout {
                             @Override
                             public void run() {
                                 mIndicator.animate().translationX(tab.getX()).setDuration(200);
-                                int padding = ETUtils.getTextWidth(tab);
+                                int padding = 0;
                                 int tabWidth = tab.getMeasuredWidth();
+                                switch (mSeparatorWidth) {
+                                    case SEP_MATCH:
+                                        padding = ETUtils.getTextWidth(tab);
+                                        break;
+                                    case SEP_FIXED:
+                                        padding = mSeparatorSize;
+                                        break;
+                                    case SEP_FULL:
+                                        padding = tabWidth;
+                                        break;
+                                }
                                 ETUtils.setDimensionLayout(mIndicator, padding, -1);
                                 ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
                             }
