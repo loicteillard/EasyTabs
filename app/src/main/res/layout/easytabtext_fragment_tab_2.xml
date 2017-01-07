@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="This Is TAB 2 Screen"
+        android:text="This is TAB 2 content"
         android:gravity="center"
         android:id="@+id/textView"
         android:layout_centerVertical="true"

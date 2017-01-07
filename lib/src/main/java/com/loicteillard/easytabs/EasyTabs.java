@@ -23,7 +23,7 @@ public class EasyTabs extends LinearLayout {
 
     private View mIndicator;
     private boolean mSeparatorsEnabled;
-    private boolean mIndicatorEnabled;
+    private boolean mIndicatorsEnabled;
     private ArrayList<TextView> mTabs;
     private int mSelectedColor, mUnselectedColor;
     private int mSeparatorWidth, mSeparatorSize;
@@ -139,7 +139,7 @@ public class EasyTabs extends LinearLayout {
 
                 // At the end, add views to the main viewgroup
 //                addView(relativeLayout);
-                if (mIndicatorEnabled) addView(mIndicator);
+                if (mIndicatorsEnabled) addView(mIndicator);
                 addView(mViewPager);
             }
         });
@@ -177,7 +177,7 @@ public class EasyTabs extends LinearLayout {
         mSeparatorWidth = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_separator_width, SEP_MATCH);
         mSeparatorSize = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_separator_size, 0);
         mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
-        mIndicatorEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicator, true);
+        mIndicatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicators, true);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

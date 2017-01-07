@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="This Is TAB 3 Screen"
+        android:text="This is TAB 3 content"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
 </RelativeLayout>
