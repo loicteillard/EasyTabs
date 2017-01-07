@@ -24,12 +24,10 @@ public class EasyTabs extends LinearLayout {
     private View mIndicator;
     private boolean mSeparatorsEnabled;
     private boolean mIndicatorsEnabled;
-    private boolean mInitialized;
     private ArrayList<View> mTabs;
     private int mSelectedColor, mUnselectedColor;
     private int mSeparatorWidth, mSeparatorSize;
     private ViewPager mViewPager;
-//    private PagerAdapter mPagerAdapter;
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -63,8 +61,6 @@ public class EasyTabs extends LinearLayout {
         setLayoutParams(lParams);
 
 
-
-
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -79,7 +75,7 @@ public class EasyTabs extends LinearLayout {
     public PagerAdapter getPagerAdapter() {
         if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please set one !");
         if (mViewPager.getAdapter() == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
-        if (mInitialized && mViewPager.getAdapter().getCount() != getTabs().size()) throw new IllegalStateException("Adapter must have the same number of items than tabs !");
+        if (mViewPager.getAdapter().getCount() != getTabs().size()) throw new IllegalStateException("Adapter must have the same number of items than tabs !");
         return mViewPager.getAdapter();
     }
 
@@ -90,22 +86,11 @@ public class EasyTabs extends LinearLayout {
 
         // Prepare layout for tabs
         LinearLayout.LayoutParams lParams = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        final RelativeLayout relativeLayout = new RelativeLayout(getContext());
-//        RelativeLayout.LayoutParams rParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        relativeLayout.setLayoutParams(rParams);
         final LinearLayout layoutTabs = new LinearLayout(getContext());
         layoutTabs.setOrientation(HORIZONTAL);
         layoutTabs.setLayoutParams(lParams);
 
         // Add childs views
-        post(new Runnable() {
-            @Override
-            public void run() {
-
-
-            }
-        });
-
         for (int i = 0; i < getChildCount(); i++) {
 
             View view = getChildAt(i);
@@ -122,10 +107,6 @@ public class EasyTabs extends LinearLayout {
 //                        TextView textView = (TextView) view;
 //                        addTab(prepareTab(textView));
 //                    }
-//                    else if (view instanceof ViewPager) {
-//                        mViewPager = (ViewPager) view;
-//                        mViewPager.setAdapter(getPagerAdapter());
-//                    }
         }
 
         // Clear views (childs can have only one parent)
@@ -135,62 +116,39 @@ public class EasyTabs extends LinearLayout {
         mIndicator = createIndicator();
 
         // Add tabs items
-//                int index = 0;
         for (View view : getTabs()) {
             layoutTabs.addView(view);
             if (mSeparatorsEnabled) layoutTabs.addView(createSeparator());
-
-//                    final int finalIndex = index;
-//                    view.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View view) {
-//                            switchState(finalIndex);
-//                        }
-//                    });
-//
-//                    index++;
-//
         }
 
         // Add views
-//                relativeLayout.addView(layoutTabs);
         addView(layoutTabs);
 
         // At the end, add views to the main viewgroup
-//                addView(relativeLayout);
         if (mIndicatorsEnabled) addView(mIndicator);
-//                addView(mViewPager);
 
-        mInitialized = true;
+        // Listener to change state
+        getViewPager().clearOnPageChangeListeners();
+        getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-//        post(new Runnable() {
-//            @Override
-//            public void run() {
-                // Listener to change state
-                getViewPager().clearOnPageChangeListeners();
-                getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
-                    }
+            @Override
+            public void onPageSelected(int position) {
+                switchState(position);
 
-                    @Override
-                    public void onPageSelected(int position) {
-                        switchState(position);
+            }
 
-                    }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
+            }
+        });
 
-                    }
-                });
-
-                // Initial state on the first item
-                switchState(0);
-//            }
-//        });
-
+        // Initial state on the first item
+        switchState(0);
 
     }
 
