@@ -12,46 +12,38 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar"/>
 
-        <com.loicteillard.easytabs.EasyTabs
-            android:id="@+id/easytabs"
-            android:layout_width="match_parent"
+    <com.loicteillard.easytabs.EasyTabs
+        android:id="@+id/easytabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginTop="30dp"
+        easytabs:etab_selected_color="@color/md_deep_orange_A200"
+        easytabs:etab_unselected_color="@color/md_grey_700"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
-            android:layout_marginTop="30dp"
-            easytabs:etab_selected_color="@color/md_deep_orange_A200"
-            easytabs:etab_unselected_color="@color/md_grey_700"
-            >
+            android:text="@string/tab_1"
+            android:textAllCaps="true"
+            />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_1"
-                android:textAllCaps="true"
-                android:layout_weight="1"
-                android:gravity="center"
-                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_2"
+            android:textAllCaps="true"
+            />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_2"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_3"
+            android:textAllCaps="true"
+            />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_3"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textAllCaps="true"
-                />
-
-
-
-            </com.loicteillard.easytabs.EasyTabs>
+    </com.loicteillard.easytabs.EasyTabs>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

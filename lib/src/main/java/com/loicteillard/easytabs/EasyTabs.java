@@ -94,7 +94,7 @@ public class EasyTabs extends LinearLayout {
         for (int i = 0; i < getChildCount(); i++) {
 
             View view = getChildAt(i);
-            addTab(view);
+//            addTab(view);
 
             final int finalI = i;
             view.setOnClickListener(new View.OnClickListener() {
@@ -103,10 +103,10 @@ public class EasyTabs extends LinearLayout {
                     switchState(finalI);
                 }
             });
-//                    if (view instanceof TextView) {
-//                        TextView textView = (TextView) view;
-//                        addTab(prepareTab(textView));
-//                    }
+                    if (view instanceof TextView) {
+                        TextView textView = (TextView) view;
+                        addTab(prepareTab(textView));
+                    }
         }
 
         // Clear views (childs can have only one parent)
