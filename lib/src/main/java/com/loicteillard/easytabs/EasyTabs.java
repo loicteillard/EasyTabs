@@ -77,7 +77,7 @@ public class EasyTabs extends LinearLayout {
 
             if (view instanceof TextView) {
                 TextView textView = (TextView) view;
-                addTab(prepareTab(textView),i);
+                addTab(prepareTab(textView), i);
             }
         }
 
@@ -143,7 +143,7 @@ public class EasyTabs extends LinearLayout {
 
     public void setViewPager(ViewPager viewPager) {
         mViewPager = viewPager;
-       populate();
+        populate();
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
