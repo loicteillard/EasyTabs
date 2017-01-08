@@ -3,6 +3,7 @@ package com.loicteillard.easytabs;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -17,15 +18,18 @@ import loic.teillard.easytabs.R;
 
 public class EasyTabs extends LinearLayout {
 
-    public static final int SEP_MATCH = 0;
-    public static final int SEP_FIXED = 1;
-    public static final int SEP_FULL = 2;
+    public static final int SEP_DEFAULT_COLOR = Color.parseColor("#b7b7b7");
+
+    public static final int INDICATOR_MATCH = 0;
+    public static final int INDICATOR_FIXED = 1;
+    public static final int INDICATOR_FULL = 2;
 
     private View mIndicator;
     private boolean mSeparatorsEnabled;
     private boolean mIndicatorsEnabled;
+    private boolean mBoldForSelected;
     private ArrayList<View> mTabs;
-    private int mSelectedColor, mUnselectedColor;
+    private int mSelectedColor, mUnselectedColor, mSeparatorColor;
     private int mSeparatorWidth, mSeparatorSize;
     private ViewPager mViewPager;
 
@@ -154,10 +158,12 @@ public class EasyTabs extends LinearLayout {
 
         mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_selected_color, Color.BLACK);
         mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_unselected_color, Color.BLACK);
-        mSeparatorWidth = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_separator_width, SEP_MATCH);
-        mSeparatorSize = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_separator_size, 0);
+        mSeparatorWidth = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_indicator_width, INDICATOR_MATCH);
+        mSeparatorSize = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_indicator_size, 0);
         mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
         mIndicatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicators, true);
+        mBoldForSelected = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_bold_for_selected, false);
+        mSeparatorColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_separator_color, SEP_DEFAULT_COLOR);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -175,6 +181,7 @@ public class EasyTabs extends LinearLayout {
                 if (tab.getUnselectedColor() != 0) unselectedColor = tab.getUnselectedColor();
                 tab.setTextColor((i == selected) ? selectedColor : unselectedColor);
                 if (i == selected) mIndicator.setBackgroundColor(selectedColor);
+                tab.setTypeface(null, i == selected && mBoldForSelected ? Typeface.BOLD : Typeface.NORMAL);
 
                 if (i == selected) {
                     tab.post(
@@ -185,13 +192,13 @@ public class EasyTabs extends LinearLayout {
                                     int padding = 0;
                                     int tabWidth = tab.getMeasuredWidth();
                                     switch (mSeparatorWidth) {
-                                        case SEP_MATCH:
+                                        case INDICATOR_MATCH:
                                             padding = ETUtils.getTextWidth(tab);
                                             break;
-                                        case SEP_FIXED:
+                                        case INDICATOR_FIXED:
                                             padding = mSeparatorSize;
                                             break;
-                                        case SEP_FULL:
+                                        case INDICATOR_FULL:
                                             padding = tabWidth;
                                             break;
                                     }
@@ -227,7 +234,7 @@ public class EasyTabs extends LinearLayout {
     private View createSeparator() {
 
         View view = new View(getContext());
-        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
+        view.setBackgroundColor(mSeparatorColor);
 
         LinearLayout.LayoutParams params = new LayoutParams(ETUtils.dpToPx(1), ETUtils.dpToPx(15));
         params.gravity = Gravity.RIGHT;
@@ -235,20 +242,6 @@ public class EasyTabs extends LinearLayout {
 
         return view;
     }
-
-    // ---------------------------------------------------------------------------------------------------------------------
-
-//    private View createSeparator() {
-//        View view = new View(getContext());
-//        RelativeLayout.LayoutParams sepParams = new RelativeLayout.LayoutParams(ETUtils.dpToPx(1), ETUtils.dpToPx(15));
-//        view.setBackgroundColor(Color.parseColor("#b7b7b7"));
-//
-//        sepParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-//
-//        view.setLayoutParams(sepParams);
-//
-//        return view;
-//    }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
