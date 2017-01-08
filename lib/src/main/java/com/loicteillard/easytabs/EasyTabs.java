@@ -20,9 +20,9 @@ public class EasyTabs extends LinearLayout {
 
     public static final int SEP_DEFAULT_COLOR = Color.parseColor("#b7b7b7");
 
-    public static final int INDICATOR_MATCH = 0;
-    public static final int INDICATOR_FIXED = 1;
-    public static final int INDICATOR_FULL = 2;
+    public static final int INDICATOR_TEXT = 0;
+    public static final int INDICATOR_VALUE = 1;
+    public static final int INDICATOR_MATCH_PARENT = 2;
 
     private View mIndicator;
     private boolean mSeparatorsEnabled;
@@ -79,8 +79,8 @@ public class EasyTabs extends LinearLayout {
 
             View view = getChildAt(i);
 
-            if (view instanceof EasyTabTextView) {
-                EasyTabTextView textView = (EasyTabTextView) view;
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
                 addTab(prepareTab(textView), i);
             }
         }
@@ -158,8 +158,8 @@ public class EasyTabs extends LinearLayout {
 
         mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_selected_color, Color.BLACK);
         mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_unselected_color, Color.BLACK);
-        mSeparatorWidth = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_indicator_width, INDICATOR_MATCH);
-        mSeparatorSize = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_indicator_size, 0);
+        mSeparatorSize = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_indicator_size, INDICATOR_TEXT);
+        mSeparatorWidth = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_indicator_width, 0);
         mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
         mIndicatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicators, true);
         mBoldForSelected = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_bold_for_selected, false);
@@ -175,10 +175,13 @@ public class EasyTabs extends LinearLayout {
 
         for (int i = 0; i < getPagerAdapter().getCount(); i++) {
             View view = getTabs().get(i);
-            if (view instanceof EasyTabTextView) {
-                final EasyTabTextView tab = (EasyTabTextView) getTabs().get(i);
-                if (tab.getSelectedColor() != 0) selectedColor = tab.getSelectedColor();
-                if (tab.getUnselectedColor() != 0) unselectedColor = tab.getUnselectedColor();
+            if (view instanceof TextView) {
+                final TextView tab = (TextView) getTabs().get(i);
+                if (view instanceof EasyTabTextView) {
+                    EasyTabTextView easyTabTextView = (EasyTabTextView) tab;
+                    if (easyTabTextView.getSelectedColor() != 0) selectedColor = easyTabTextView.getSelectedColor();
+                    if (easyTabTextView.getUnselectedColor() != 0) unselectedColor = easyTabTextView.getUnselectedColor();
+                }
                 tab.setTextColor((i == selected) ? selectedColor : unselectedColor);
                 if (i == selected) mIndicator.setBackgroundColor(selectedColor);
                 tab.setTypeface(null, i == selected && mBoldForSelected ? Typeface.BOLD : Typeface.NORMAL);
@@ -191,14 +194,14 @@ public class EasyTabs extends LinearLayout {
                                     mIndicator.animate().translationX(tab.getX()).setDuration(200);
                                     int padding = 0;
                                     int tabWidth = tab.getMeasuredWidth();
-                                    switch (mSeparatorWidth) {
-                                        case INDICATOR_MATCH:
+                                    switch (mSeparatorSize) {
+                                        case INDICATOR_TEXT:
                                             padding = ETUtils.getTextWidth(tab);
                                             break;
-                                        case INDICATOR_FIXED:
-                                            padding = mSeparatorSize;
+                                        case INDICATOR_VALUE:
+                                            padding = mSeparatorWidth;
                                             break;
-                                        case INDICATOR_FULL:
+                                        case INDICATOR_MATCH_PARENT:
                                             padding = tabWidth;
                                             break;
                                     }
@@ -217,7 +220,7 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    private TextView prepareTab(EasyTabTextView tab) {
+    private TextView prepareTab(TextView tab) {
         tab.setGravity(Gravity.CENTER);
         tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
 

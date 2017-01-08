@@ -11,11 +11,11 @@
         <!--INDICATOR-->
 
         <attr name="etab_indicator_color" format="color"/>
-        <attr name="etab_indicator_size" format="dimension"/>
-        <attr name="etab_indicator_width" format="enum">
-            <enum name="match" value="0"/>
-            <enum name="fixed" value="1"/>
-            <enum name="full" value="2"/>
+        <attr name="etab_indicator_width" format="dimension"/>
+        <attr name="etab_indicator_size" format="enum">
+            <enum name="text" value="0"/>
+            <enum name="value" value="1"/>
+            <enum name="match_parent" value="2"/>
             </attr>
         <attr name="etab_indicators" format="boolean"/>
 

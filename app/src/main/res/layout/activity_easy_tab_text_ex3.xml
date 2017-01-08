@@ -20,7 +20,12 @@
         android:layout_marginTop="30dp"
         easytabs:etab_selected_color="@color/md_deep_orange_A200"
         easytabs:etab_unselected_color="@color/md_grey_700"
+    easytabs:etab_indicator_size="match_parent"
+        easytabs:etab_separators="true"
+        easytabs:etab_separator_color="@color/md_grey_400"
         >
+
+
 
         <TextView
             android:layout_width="wrap_content"

@@ -19,7 +19,7 @@ public class TabLayoutTextActivity extends BaseActivity {
         viewPager = (ViewPager) findViewById(R.id.pager1);
 
         tabLayout.addTab(tabLayout.newTab().setText("TAB 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("TAB 2"));
+        tabLayout.addTab(tabLayout.newTab().setText("LARGE TAB 2"));
         tabLayout.addTab(tabLayout.newTab().setText("TAB 3"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);

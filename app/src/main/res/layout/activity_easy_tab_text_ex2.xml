@@ -21,8 +21,6 @@
         easytabs:etab_selected_color="@color/md_deep_orange_A200"
         easytabs:etab_unselected_color="@color/md_grey_700"
         easytabs:etab_bold_for_selected="true"
-        easytabs:etab_separators="true"
-        easytabs:etab_separator_color="@color/md_grey_400"
         >
 
         <com.loicteillard.easytabs.EasyTabTextView
