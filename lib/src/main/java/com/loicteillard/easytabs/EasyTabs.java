@@ -75,16 +75,9 @@ public class EasyTabs extends LinearLayout {
 
             View view = getChildAt(i);
 
-            final int finalI = i;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    switchState(finalI);
-                }
-            });
             if (view instanceof TextView) {
                 TextView textView = (TextView) view;
-                addTab(prepareTab(textView));
+                addTab(prepareTab(textView),i);
             }
         }
 
@@ -266,9 +259,15 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public void addTab(View view) {
+    public void addTab(View view, final int index) {
         if (view == null) return;
         getTabs().add(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchState(index);
+            }
+        });
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
