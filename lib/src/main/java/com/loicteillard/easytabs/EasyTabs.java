@@ -75,8 +75,8 @@ public class EasyTabs extends LinearLayout {
 
             View view = getChildAt(i);
 
-            if (view instanceof TextView) {
-                TextView textView = (TextView) view;
+            if (view instanceof EasyTabTextView) {
+                EasyTabTextView textView = (EasyTabTextView) view;
                 addTab(prepareTab(textView), i);
             }
         }
@@ -164,13 +164,17 @@ public class EasyTabs extends LinearLayout {
 
     private void switchState(int selected) {
 
-        mIndicator.setBackgroundColor(mSelectedColor);
+        int selectedColor = mSelectedColor;
+        int unselectedColor = mUnselectedColor;
 
         for (int i = 0; i < getPagerAdapter().getCount(); i++) {
             View view = getTabs().get(i);
-            if (view instanceof TextView) {
-                final TextView tab = (TextView) getTabs().get(i);
-                tab.setTextColor((i == selected) ? mSelectedColor : mUnselectedColor);
+            if (view instanceof EasyTabTextView) {
+                final EasyTabTextView tab = (EasyTabTextView) getTabs().get(i);
+                if (tab.getSelectedColor() != 0) selectedColor = tab.getSelectedColor();
+                if (tab.getUnselectedColor() != 0) unselectedColor = tab.getUnselectedColor();
+                tab.setTextColor((i == selected) ? selectedColor : unselectedColor);
+                if (i == selected) mIndicator.setBackgroundColor(selectedColor);
 
                 if (i == selected) {
                     tab.post(
@@ -206,7 +210,7 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    private TextView prepareTab(TextView tab) {
+    private TextView prepareTab(EasyTabTextView tab) {
         tab.setGravity(Gravity.CENTER);
         tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
 
