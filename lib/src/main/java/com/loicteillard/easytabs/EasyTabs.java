@@ -59,8 +59,6 @@ public class EasyTabs extends LinearLayout {
         setOrientation(VERTICAL);
         LinearLayout.LayoutParams lParams = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         setLayoutParams(lParams);
-
-
     }
 
     // ---------------------------------------------------------------------------------------------------------------------

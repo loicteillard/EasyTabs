@@ -1,9 +1,8 @@
 package com.loicteillard.easytabs.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-
-import com.loicteillard.easytabs.EasyTabs;
+import android.view.View;
 
 public class EasyTabTextActivity extends BaseActivity {
 
@@ -12,14 +11,11 @@ public class EasyTabTextActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easy_tab_text);
 
-        EasyTabs easyTabs = (EasyTabs) findViewById(R.id.easytabs);
-        ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
-
-        MyFragmentAdapter pagerAdapter = new MyFragmentAdapter(getSupportFragmentManager());
-        viewpager.setAdapter(pagerAdapter);
-//        easyTabs.setViewPagerAdapter(pagerAdapter);
-        easyTabs.setViewPager(viewpager);
     }
+
+    public void example1(View v) { startActivity(new Intent(this,EasyTabTextExample1Activity.class)); }
+    public void example2(View v) { startActivity(new Intent(this,EasyTabTextExample2Activity.class)); }
+    public void example3(View v) { startActivity(new Intent(this,EasyTabTextExample3Activity.class)); }
 
 
 }

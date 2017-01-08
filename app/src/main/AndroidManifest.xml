@@ -16,16 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".TabLayoutTextActivity">
-        </activity>
-        <activity android:name=".TabLayoutIconActivity">
-        </activity>
-        <activity android:name=".EasyTabTextActivity">
-        </activity>
-        <activity android:name=".EasyTabIconActivity">
-        </activity>
-        <activity android:name=".EasyTabTextIconActivity">
-        </activity>
+
+        <activity android:name=".EasyTabTextActivity"/>
+        <activity android:name=".EasyTabTextExample1Activity"/>
+        <activity android:name=".EasyTabTextExample2Activity"/>
+        <activity android:name=".EasyTabTextExample3Activity"/>
+
+        <activity android:name=".EasyTabIconActivity"/>
+
+
+        <activity android:name=".TabLayoutTextActivity"/>
+        <activity android:name=".TabLayoutIconActivity"/>
+
+
     </application>
 
 </manifest>

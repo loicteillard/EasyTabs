@@ -4,6 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
+              android:background="@color/accent_material_dark"
               tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -57,22 +58,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@color/md_deep_orange_300"
-                android:onClick="EasyTabIcon2"
-                android:padding="20dp"
-                android:text="EasyTab (Text+Icon)"
-                android:textColor="@color/md_grey_900"
-                />
-
-            <Button
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@color/md_deep_orange_300"
+                android:background="@color/md_deep_orange_50"
                 android:onClick="TabLayoutText"
                 android:padding="20dp"
-                android:text="Classic TabLayout (Text)"
+                android:text="Native TabLayout (Text)"
                 android:textColor="@color/md_grey_900"
                 />
 
@@ -81,10 +70,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:background="@color/md_deep_orange_300"
+                android:background="@color/md_deep_orange_50"
                 android:onClick="TabLayoutIcon"
                 android:padding="20dp"
-                android:text="Classic TabLayout (Icon)"
+                android:text="Native TabLayout (Icon)"
                 android:textColor="@color/md_grey_900"
                 />
 
