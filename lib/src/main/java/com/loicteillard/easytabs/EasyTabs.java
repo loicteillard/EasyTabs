@@ -63,25 +63,7 @@ public class EasyTabs extends LinearLayout {
 
     // ---------------------------------------------------------------------------------------------------------------------
 
-    public ViewPager getViewPager() {
-        if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please add a viewpager as a child of the layout !");
-        return mViewPager;
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------------
-
-    public PagerAdapter getPagerAdapter() {
-        if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please set one !");
-        if (mViewPager.getAdapter() == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
-        if (mViewPager.getAdapter().getCount() != getTabs().size()) throw new IllegalStateException("Adapter must have the same number of items than tabs !");
-        return mViewPager.getAdapter();
-    }
-
-    // ---------------------------------------------------------------------------------------------------------------------
-
-    public void setViewPager(ViewPager viewPager) {
-        mViewPager = viewPager;
-
+    private void populate() {
         // Prepare layout for tabs
         LinearLayout.LayoutParams lParams = new LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         final LinearLayout layoutTabs = new LinearLayout(getContext());
@@ -92,7 +74,6 @@ public class EasyTabs extends LinearLayout {
         for (int i = 0; i < getChildCount(); i++) {
 
             View view = getChildAt(i);
-//            addTab(view);
 
             final int finalI = i;
             view.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +82,10 @@ public class EasyTabs extends LinearLayout {
                     switchState(finalI);
                 }
             });
-                    if (view instanceof TextView) {
-                        TextView textView = (TextView) view;
-                        addTab(prepareTab(textView));
-                    }
+            if (view instanceof TextView) {
+                TextView textView = (TextView) view;
+                addTab(prepareTab(textView));
+            }
         }
 
         // Clear views (childs can have only one parent)
@@ -147,7 +128,29 @@ public class EasyTabs extends LinearLayout {
 
         // Initial state on the first item
         switchState(0);
+    }
 
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public ViewPager getViewPager() {
+        if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please add a viewpager as a child of the layout !");
+        return mViewPager;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public PagerAdapter getPagerAdapter() {
+        if (mViewPager == null) throw new IllegalStateException("No ViewPager found, please set one !");
+        if (mViewPager.getAdapter() == null) throw new IllegalStateException("No Adapter found for this viewpager, please set one !");
+        if (mViewPager.getAdapter().getCount() != getTabs().size()) throw new IllegalStateException("Adapter must have the same number of items than tabs !");
+        return mViewPager.getAdapter();
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public void setViewPager(ViewPager viewPager) {
+        mViewPager = viewPager;
+       populate();
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
