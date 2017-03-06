@@ -191,7 +191,8 @@ public class EasyTabs extends LinearLayout {
                             new Runnable() {
                                 @Override
                                 public void run() {
-                                    mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                    if (mIndicator.getMeasuredWidth() > 0)  mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                    else mIndicator.setTranslationX(tab.getX());
                                     int padding = 0;
                                     int tabWidth = tab.getMeasuredWidth();
                                     switch (mSeparatorSize) {
