@@ -225,10 +225,10 @@ public class EasyTabs extends LinearLayout {
         tab.setGravity(Gravity.CENTER);
         tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
 
-        LinearLayout.LayoutParams textViewParams1 = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-        textViewParams1.weight = 1f;
-        textViewParams1.gravity = Gravity.CENTER;
-        tab.setLayoutParams(textViewParams1);
+//        LinearLayout.LayoutParams textViewParams1 = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        textViewParams1.weight = 1f;
+//        textViewParams1.gravity = Gravity.CENTER;
+//        tab.setLayoutParams(textViewParams1);
 
         return tab;
     }
