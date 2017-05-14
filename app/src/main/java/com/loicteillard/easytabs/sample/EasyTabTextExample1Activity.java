@@ -14,6 +14,7 @@ public class EasyTabTextExample1Activity extends BaseActivity {
 
 //        TODO : add default tab property
 //        TODO : no twice switchstate (because of click on tab, onpageselect is called, cf. DA)
+//        TODO : add setfont (with singleton factory cf. smart)
 
         EasyTabs easyTabs = (EasyTabs) findViewById(R.id.easytabs);
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
