@@ -13,8 +13,6 @@ public class EasyTabTextExample1Activity extends BaseActivity {
         setContentView(R.layout.activity_easy_tab_text_ex1);
 
 //        TODO : add default tab property
-//        TODO : no twice switchstate (because of click on tab, onpageselect is called, cf. DA)
-//        TODO : check custom font is possible ? (maybe do not force a use of pure textview for tabs)
 
         EasyTabs easyTabs = (EasyTabs) findViewById(R.id.easytabs);
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);

@@ -20,7 +20,6 @@
         <activity android:name=".EasyTabTextActivity"/>
         <activity android:name=".EasyTabTextExample1Activity"/>
         <activity android:name=".EasyTabTextExample2Activity"/>
-        <activity android:name=".EasyTabTextExample3Activity"/>
 
         <activity android:name=".EasyTabIconActivity"/>
 

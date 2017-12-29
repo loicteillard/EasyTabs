@@ -3,11 +3,10 @@ package com.loicteillard.easytabs;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import loic.teillard.easytabs.R;
 
-public class EasyTabTextView extends TextView {
+public class EasyTabTextView extends android.support.v7.widget.AppCompatTextView {
 
     private int mSelectedColor, mUnselectedColor;
 

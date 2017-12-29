@@ -15,7 +15,6 @@ public class EasyTabTextActivity extends BaseActivity {
 
     public void example1(View v) { startActivity(new Intent(this,EasyTabTextExample1Activity.class)); }
     public void example2(View v) { startActivity(new Intent(this,EasyTabTextExample2Activity.class)); }
-    public void example3(View v) { startActivity(new Intent(this,EasyTabTextExample3Activity.class)); }
 
 
 }

@@ -44,17 +44,6 @@
             android:textColor="@color/md_grey_900"
             />
 
-        <Button
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_gravity="center"
-            android:background="@color/md_deep_orange_300"
-            android:onClick="example3"
-            android:padding="20dp"
-            android:text="Example 3"
-            android:textColor="@color/md_grey_900"
-            />
 
     </LinearLayout>
 

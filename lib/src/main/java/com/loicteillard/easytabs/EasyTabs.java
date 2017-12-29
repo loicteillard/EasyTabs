@@ -32,6 +32,8 @@ public class EasyTabs extends LinearLayout {
     private int mSelectedColor, mUnselectedColor, mSeparatorColor;
     private int mSeparatorWidth, mSeparatorSize;
     private ViewPager mViewPager;
+    protected ViewPager.OnPageChangeListener mOnPageChangeListener;
+    private int mDefaultTab;
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -104,8 +106,7 @@ public class EasyTabs extends LinearLayout {
         if (mIndicatorsEnabled) addView(mIndicator);
 
         // Listener to change state
-        getViewPager().clearOnPageChangeListeners();
-        getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -121,10 +122,13 @@ public class EasyTabs extends LinearLayout {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
+        };
 
-        // Initial state on the first item
-        switchState(0);
+        getViewPager().clearOnPageChangeListeners();
+        getViewPager().addOnPageChangeListener(mOnPageChangeListener);
+
+        // Initial state on the default item
+        switchState(mDefaultTab);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -146,7 +150,14 @@ public class EasyTabs extends LinearLayout {
     // ---------------------------------------------------------------------------------------------------------------------
 
     public void setViewPager(ViewPager viewPager) {
+        setViewPager(viewPager,0);
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public void setViewPager(ViewPager viewPager, int defaultTab) {
         mViewPager = viewPager;
+        mDefaultTab = defaultTab;
         populate();
     }
 
@@ -213,10 +224,11 @@ public class EasyTabs extends LinearLayout {
                     );
                 }
             }
-
         }
 
+        getViewPager().removeOnPageChangeListener(mOnPageChangeListener);
         getViewPager().setCurrentItem(selected, true);
+        getViewPager().addOnPageChangeListener(mOnPageChangeListener);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -225,10 +237,10 @@ public class EasyTabs extends LinearLayout {
         tab.setGravity(Gravity.CENTER);
         tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
 
-//        LinearLayout.LayoutParams textViewParams1 = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        textViewParams1.weight = 1f;
-//        textViewParams1.gravity = Gravity.CENTER;
-//        tab.setLayoutParams(textViewParams1);
+        LinearLayout.LayoutParams textViewParams = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textViewParams.weight = 1f;
+        textViewParams.gravity = Gravity.CENTER;
+        tab.setLayoutParams(textViewParams);
 
         return tab;
     }

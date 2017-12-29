@@ -17,7 +17,7 @@ public class EasyTabTextExample2Activity extends BaseActivity {
 
         MyFragmentAdapter pagerAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewpager.setAdapter(pagerAdapter);
-        easyTabs.setViewPager(viewpager);
+        easyTabs.setViewPager(viewpager,1);
     }
 
 
