@@ -2,6 +2,7 @@ package com.loicteillard.easytabs.sample;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.widget.Toast;
 
 import com.loicteillard.easytabs.EasyTabs;
 
@@ -18,6 +19,14 @@ public class EasyTabTextExample2Activity extends BaseActivity {
         MyFragmentAdapter pagerAdapter = new MyFragmentAdapter(getSupportFragmentManager());
         viewpager.setAdapter(pagerAdapter);
         easyTabs.setViewPager(viewpager,1);
+
+        easyTabs.setPagerListener(new EasyTabs.PagerListener() {
+            @Override
+            public void onTabSelected(int position) {
+                Toast.makeText(EasyTabTextExample2Activity.this, "tab selected:"+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        
     }
 
 

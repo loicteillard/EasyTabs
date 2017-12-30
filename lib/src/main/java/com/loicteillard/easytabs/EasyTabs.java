@@ -34,6 +34,13 @@ public class EasyTabs extends LinearLayout {
     private ViewPager mViewPager;
     protected ViewPager.OnPageChangeListener mOnPageChangeListener;
     private int mDefaultTab;
+    private PagerListener mPagerListener;
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public interface PagerListener {
+        void onTabSelected(int position);
+    }
 
     // ---------------------------------------------------------------------------------------------------------------------
 
@@ -115,7 +122,6 @@ public class EasyTabs extends LinearLayout {
             @Override
             public void onPageSelected(int position) {
                 switchState(position);
-
             }
 
             @Override
@@ -159,6 +165,12 @@ public class EasyTabs extends LinearLayout {
         mViewPager = viewPager;
         mDefaultTab = defaultTab;
         populate();
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    public void setPagerListener(PagerListener pagerListener) {
+        mPagerListener = pagerListener;
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -229,6 +241,10 @@ public class EasyTabs extends LinearLayout {
         getViewPager().removeOnPageChangeListener(mOnPageChangeListener);
         getViewPager().setCurrentItem(selected, true);
         getViewPager().addOnPageChangeListener(mOnPageChangeListener);
+
+
+        if (mPagerListener != null) mPagerListener.onTabSelected(selected);
+
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
