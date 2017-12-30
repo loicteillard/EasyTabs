@@ -100,7 +100,7 @@ Add the dependency in your app gradle :
 | easytabs:etab_unselected_color|  Color of Text and indicator for unselected tab (global for all tabs or for one tab)|Color|
 | easytabs:etab_bold_for_selected| Text is bold when selected (default is false) |Boolean|
 | easytabs:etab_indicator_size|  Width of indicator, one of these values : "text" (adjust to same size of the tab text [default], "value" (custom size, add 'etab_indicator_width'), "match_parent" (full size of the tab)|Enum|
-| easytabs:etab_indicator_width |If you use etab_indicator_size="value", Add a fixed dimension for width indicator|Dimension|
+| easytabs:etab_indicator_width |If you use etab_indicator_size="value", add a fixed dimension for width indicator|Dimension|
 | easytabs:etab_indicators| Enable/Disable indicators|Boolean|
 | easytabs:etab_separators| Enable/Disable separators|Boolean|
 | easytabs:etab_separator_color| Change color of separators|Color|
