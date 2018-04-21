@@ -18,7 +18,7 @@ Add the jitpack source in your root build.gradle at the end of repositories:
 
 Add the dependency in your app gradle :    
 
-    implementation 'com.github.loicteillard:EasyTabs:0.2'  
+    implementation 'com.github.loicteillard:EasyTabs:0.3'  
 
 
 ### Usage
