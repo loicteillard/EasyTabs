@@ -3,7 +3,7 @@
 
 Easy implementation of custom tabs, when TabLayout do not fit your needs.
 
-With Textviews
+With Textviews :
 
 ![Demo](./demo_text.gif)
 
