@@ -1,14 +1,17 @@
 package com.loicteillard.easytabs;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.ImageViewCompat;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +24,7 @@ public class EasyTabs extends LinearLayout {
     public static final int SEP_DEFAULT_COLOR = Color.parseColor("#b7b7b7");
 
     public static final int INDICATOR_TEXT = 0;
+    public static final int INDICATOR_IMAGE = 0;
     public static final int INDICATOR_VALUE = 1;
     public static final int INDICATOR_MATCH_PARENT = 2;
 
@@ -92,6 +96,12 @@ public class EasyTabs extends LinearLayout {
                 TextView textView = (TextView) view;
                 addTab(prepareTab(textView), i);
             }
+
+            if (view instanceof ImageView) {
+                ImageView imageView = (ImageView) view;
+                addTab(prepareTab(imageView), i);
+            }
+
         }
 
         // Clear views (childs can have only one parent)
@@ -156,7 +166,7 @@ public class EasyTabs extends LinearLayout {
     // ---------------------------------------------------------------------------------------------------------------------
 
     public void setViewPager(ViewPager viewPager) {
-        setViewPager(viewPager,0);
+        setViewPager(viewPager, 0);
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
@@ -181,7 +191,7 @@ public class EasyTabs extends LinearLayout {
 
         mSelectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_selected_color, Color.BLACK);
         mUnselectedColor = attrsArray.getColor(R.styleable.EasyTabsAttrs_etab_unselected_color, Color.BLACK);
-        mSeparatorSize = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_indicator_size, INDICATOR_TEXT);
+        mSeparatorSize = attrsArray.getInt(R.styleable.EasyTabsAttrs_etab_indicator_size, 0);
         mSeparatorWidth = attrsArray.getDimensionPixelSize(R.styleable.EasyTabsAttrs_etab_indicator_width, 0);
         mSeparatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_separators, false);
         mIndicatorsEnabled = attrsArray.getBoolean(R.styleable.EasyTabsAttrs_etab_indicators, true);
@@ -198,6 +208,7 @@ public class EasyTabs extends LinearLayout {
 
         for (int i = 0; i < getPagerAdapter().getCount(); i++) {
             View view = getTabs().get(i);
+
             if (view instanceof TextView) {
                 final TextView tab = (TextView) getTabs().get(i);
                 if (view instanceof EasyTabTextView) {
@@ -214,7 +225,7 @@ public class EasyTabs extends LinearLayout {
                             new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (mIndicator.getMeasuredWidth() > 0)  mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                    if (mIndicator.getMeasuredWidth() > 0) mIndicator.animate().translationX(tab.getX()).setDuration(200);
                                     else mIndicator.setTranslationX(tab.getX());
                                     int padding = 0;
                                     int tabWidth = tab.getMeasuredWidth();
@@ -235,7 +246,39 @@ public class EasyTabs extends LinearLayout {
                             }
                     );
                 }
+            } else if (view instanceof ImageView) {
+                final ImageView tab = (ImageView) getTabs().get(i);
+                ImageViewCompat.setImageTintList(tab, ColorStateList.valueOf((i == selected) ? selectedColor : unselectedColor));
+                mIndicator.setBackgroundColor(selectedColor);
+
+                if (i == selected) {
+                    tab.post(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    if (mIndicator.getMeasuredWidth() > 0) mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                                    else mIndicator.setTranslationX(tab.getX());
+                                    int padding = 0;
+                                    int tabWidth = tab.getMeasuredWidth();
+                                    switch (mSeparatorSize) {
+                                        case INDICATOR_IMAGE:
+                                            padding = tab.getDrawable().getIntrinsicWidth();
+                                            break;
+                                        case INDICATOR_VALUE:
+                                            padding = mSeparatorWidth;
+                                            break;
+                                        case INDICATOR_MATCH_PARENT:
+                                            padding = tabWidth;
+                                            break;
+                                    }
+                                    ETUtils.setDimensionLayout(mIndicator, padding, -1);
+                                    ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
+                                }
+                            }
+                    );
+                }
             }
+
         }
 
         getViewPager().removeOnPageChangeListener(mOnPageChangeListener);
@@ -257,6 +300,20 @@ public class EasyTabs extends LinearLayout {
         textViewParams.weight = 1f;
         textViewParams.gravity = Gravity.CENTER;
         tab.setLayoutParams(textViewParams);
+
+        return tab;
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    private ImageView prepareTab(ImageView tab) {
+//        tab.(Gravity.CENTER);
+        tab.setPadding(0, 0, 0, ETUtils.dpToPx(5));
+
+        LinearLayout.LayoutParams params = new LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.weight = 1f;
+        params.gravity = Gravity.CENTER;
+        tab.setLayoutParams(params);
 
         return tab;
     }

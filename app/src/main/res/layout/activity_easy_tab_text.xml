@@ -21,26 +21,26 @@
         >
 
     <Button
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:layout_gravity="center"
         android:background="@color/md_deep_orange_300"
         android:onClick="example1"
         android:padding="20dp"
-        android:text="Example 1"
+        android:text="Example 1 with TextView"
         android:textColor="@color/md_grey_900"
         />
 
         <Button
-            android:layout_width="250dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_gravity="center"
             android:background="@color/md_deep_orange_300"
             android:onClick="example2"
             android:padding="20dp"
-            android:text="Example 2"
+            android:text="Example 2 with EasyTabTextView"
             android:textColor="@color/md_grey_900"
             />
 

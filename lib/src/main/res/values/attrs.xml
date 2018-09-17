@@ -14,6 +14,7 @@
         <attr name="etab_indicator_width" format="dimension"/>
         <attr name="etab_indicator_size" format="enum">
             <enum name="text" value="0"/>
+            <enum name="image" value="0"/>
             <enum name="value" value="1"/>
             <enum name="match_parent" value="2"/>
             </attr>

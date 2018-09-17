@@ -12,8 +12,6 @@ public class EasyTabTextExample1Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_easy_tab_text_ex1);
 
-//        TODO : add default tab property
-
         EasyTabs easyTabs = (EasyTabs) findViewById(R.id.easytabs);
         ViewPager viewpager = (ViewPager) findViewById(R.id.viewpager);
 
