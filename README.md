@@ -3,7 +3,12 @@
 
 Easy implementation of custom tabs, when TabLayout do not fit your needs.
 
+With Textviews
+
 ![Demo](./demo_text.gif)
+
+Or Drawables :
+
 ![Demo](./demo_img.gif)
 
 ### Installation
