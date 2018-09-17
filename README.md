@@ -3,7 +3,8 @@
 
 Easy implementation of custom tabs, when TabLayout do not fit your needs.
 
-![Demo](./demo.gif)
+![Demo](./demo_text.gif)
+![Demo](./demo_img.gif)
 
 ### Installation
 
@@ -18,7 +19,7 @@ Add the jitpack source in your root build.gradle at the end of repositories:
 
 Add the dependency in your app gradle :    
 
-    implementation 'com.github.loicteillard:EasyTabs:0.3'  
+    implementation 'com.github.loicteillard:EasyTabs:0.4'  
 
 
 ### Usage
@@ -27,7 +28,11 @@ Add the dependency in your app gradle :
 
     xmlns:easytabs="http://schemas.android.com/apk/res-auto"
 
-2 - Add the EasyTabs ViewGroup and EasyTabTextView for tabs title (or just TextView if you want) and a ViewPager to interact with, here is a full layout example :
+2 - Add the EasyTabs ViewGroup and Views for tabs title and a ViewPager to interact with, here is a full layout example :
+Views can be :
+TextView
+EasyTabTextView
+ImageView 
 
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout

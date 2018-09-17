@@ -205,80 +205,37 @@ public class EasyTabs extends LinearLayout {
 
         int selectedColor = mSelectedColor;
         int unselectedColor = mUnselectedColor;
+        View tab = null;
 
         for (int i = 0; i < getPagerAdapter().getCount(); i++) {
             View view = getTabs().get(i);
 
+            if (!(view instanceof TextView) && !(view instanceof ImageView)) continue;
+
+            tab = getTabs().get(i);
+
             if (view instanceof TextView) {
-                final TextView tab = (TextView) getTabs().get(i);
                 if (view instanceof EasyTabTextView) {
                     EasyTabTextView easyTabTextView = (EasyTabTextView) tab;
                     if (easyTabTextView.getSelectedColor() != 0) selectedColor = easyTabTextView.getSelectedColor();
                     if (easyTabTextView.getUnselectedColor() != 0) unselectedColor = easyTabTextView.getUnselectedColor();
                 }
-                tab.setTextColor((i == selected) ? selectedColor : unselectedColor);
-                if (i == selected) mIndicator.setBackgroundColor(selectedColor);
-                tab.setTypeface(null, i == selected && mBoldForSelected ? Typeface.BOLD : Typeface.NORMAL);
+                ((TextView)tab).setTextColor((i == selected) ? selectedColor : unselectedColor);
+                ((TextView)tab).setTypeface(null, i == selected && mBoldForSelected ? Typeface.BOLD : Typeface.NORMAL);
 
-                if (i == selected) {
-                    tab.post(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (mIndicator.getMeasuredWidth() > 0) mIndicator.animate().translationX(tab.getX()).setDuration(200);
-                                    else mIndicator.setTranslationX(tab.getX());
-                                    int padding = 0;
-                                    int tabWidth = tab.getMeasuredWidth();
-                                    switch (mSeparatorSize) {
-                                        case INDICATOR_TEXT:
-                                            padding = ETUtils.getTextWidth(tab);
-                                            break;
-                                        case INDICATOR_VALUE:
-                                            padding = mSeparatorWidth;
-                                            break;
-                                        case INDICATOR_MATCH_PARENT:
-                                            padding = tabWidth;
-                                            break;
-                                    }
-                                    ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                    ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                                }
-                            }
-                    );
-                }
             } else if (view instanceof ImageView) {
-                final ImageView tab = (ImageView) getTabs().get(i);
-                ImageViewCompat.setImageTintList(tab, ColorStateList.valueOf((i == selected) ? selectedColor : unselectedColor));
-                mIndicator.setBackgroundColor(selectedColor);
-
-                if (i == selected) {
-                    tab.post(
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (mIndicator.getMeasuredWidth() > 0) mIndicator.animate().translationX(tab.getX()).setDuration(200);
-                                    else mIndicator.setTranslationX(tab.getX());
-                                    int padding = 0;
-                                    int tabWidth = tab.getMeasuredWidth();
-                                    switch (mSeparatorSize) {
-                                        case INDICATOR_IMAGE:
-                                            padding = tab.getDrawable().getIntrinsicWidth();
-                                            break;
-                                        case INDICATOR_VALUE:
-                                            padding = mSeparatorWidth;
-                                            break;
-                                        case INDICATOR_MATCH_PARENT:
-                                            padding = tabWidth;
-                                            break;
-                                    }
-                                    ETUtils.setDimensionLayout(mIndicator, padding, -1);
-                                    ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
-                                }
-                            }
-                    );
+                if (view instanceof EasyTabImageView) {
+                    EasyTabImageView easyTabImageView = (EasyTabImageView) tab;
+                    if (easyTabImageView.getSelectedColor() != 0) selectedColor = easyTabImageView.getSelectedColor();
+                    if (easyTabImageView.getUnselectedColor() != 0) unselectedColor = easyTabImageView.getUnselectedColor();
                 }
+                ImageViewCompat.setImageTintList((ImageView)tab, ColorStateList.valueOf((i == selected) ? selectedColor : unselectedColor));
             }
 
+            if (i == selected) {
+                mIndicator.setBackgroundColor(selectedColor);
+                draw(tab);
+            }
         }
 
         getViewPager().removeOnPageChangeListener(mOnPageChangeListener);
@@ -288,6 +245,35 @@ public class EasyTabs extends LinearLayout {
 
         if (mPagerListener != null) mPagerListener.onTabSelected(selected);
 
+    }
+
+    // ---------------------------------------------------------------------------------------------------------------------
+
+    private void draw(final View tab) {
+        tab.post(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mIndicator.getMeasuredWidth() > 0) mIndicator.animate().translationX(tab.getX()).setDuration(200);
+                        else mIndicator.setTranslationX(tab.getX());
+                        int padding = 0;
+                        int tabWidth = tab.getMeasuredWidth();
+                        switch (mSeparatorSize) {
+                            case INDICATOR_TEXT: // same as INDICATOR_IMAGE
+                                padding = (tab instanceof TextView) ? ETUtils.getTextWidth((TextView)tab) : ((ImageView)tab).getDrawable().getIntrinsicWidth();;
+                                break;
+                            case INDICATOR_VALUE:
+                                padding = mSeparatorWidth;
+                                break;
+                            case INDICATOR_MATCH_PARENT:
+                                padding = tabWidth;
+                                break;
+                        }
+                        ETUtils.setDimensionLayout(mIndicator, padding, -1);
+                        ETUtils.setMarginsLayout(mIndicator, (tabWidth - padding) >> 1, -1, (tabWidth - padding) >> 1, -1);
+                    }
+                }
+        );
     }
 
     // ---------------------------------------------------------------------------------------------------------------------
