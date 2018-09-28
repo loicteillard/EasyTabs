@@ -33,12 +33,12 @@ Add the dependency in your app gradle :
 
     xmlns:easytabs="http://schemas.android.com/apk/res-auto"
 
-2 - Add the EasyTabs ViewGroup and Views for tabs title and a ViewPager to interact with, here is a full layout example.
-Views can be :
-**TextView**
-**EasyTabTextView**
-**ImageView**
-**EasyTabImageView**
+2 - Add the EasyTabs ViewGroup and Views for tabs title and a ViewPager to interact with, here is a full layout example.  
+Views can be :  
+**TextView**  
+**EasyTabTextView**  
+**ImageView**  
+**EasyTabImageView**  
 
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
